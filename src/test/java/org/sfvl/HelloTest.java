@@ -10,5 +10,6 @@ class HelloTest {
     public void test_hello() {
         final Hello hello = new Hello();
         System.out.println("HelloTest.test_hello");
+        System.out.println("Change trace");
     }
 }
