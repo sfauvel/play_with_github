@@ -1,0 +1,32 @@
+
+name: No behavior change
+
+on:
+  push:
+    branches: [ build_doc ]
+
+jobs:
+  check:
+    name: Commit files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== checkout ==============="
+          git checkout doc
+
+          echo "=============== modify file ==============="
+          doc.adoc >> "New commit"
+          echo "=============== add file ==============="
+          git add doc.adoc
+          echo "=============== commit ==============="
+          git commit -m "New commit"
+          echo "=============== push ==============="
+          git push
+          echo "=============== done ==============="
