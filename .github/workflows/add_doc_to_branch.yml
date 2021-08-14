@@ -19,7 +19,7 @@ jobs:
         id: check_files
         run: |
           echo "=============== checkout ==============="
-          git checkout doc
+          git checkout origin/doc
 
           echo "=============== modify file ==============="
           doc.adoc >> "New commit"
