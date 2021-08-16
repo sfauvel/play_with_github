@@ -22,7 +22,7 @@ jobs:
           git branch --all
       - name: Rebase from master
         run: |
-          git rebase origin/master
+          git merge origin/master -m "Merge from master"
 
       - name: Copy docs
         run: |
