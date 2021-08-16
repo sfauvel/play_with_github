@@ -28,7 +28,7 @@ jobs:
 
         git rebase origin/master
 
-        rm -R docs
+        rm -Rf docs
         cp -R builded_docs docs
         git add docs
 
