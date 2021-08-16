@@ -23,13 +23,16 @@ jobs:
           echo "=== Git all branches ==="
           git branch --all
       - name: Rebase from master
+        run: |
           git rebase origin/master
 
       - name: Copy docs
+        run: |
           rm -Rf docs
           cp -R builded_docs docs
 
       - name: Commit docs
+        run: |
           git add docs
           git commit -m "New doc"
           git push
