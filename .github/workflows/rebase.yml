@@ -22,5 +22,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        echo "=== Git branch ==="
+        git branch
+        echo "=== Git all branches ==="
+        git branch --all
+
         git rebase origin/master
 
