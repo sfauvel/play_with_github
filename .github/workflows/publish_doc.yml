@@ -11,9 +11,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        run: |
+          git log  --pretty=oneline | tail -n 10
       - uses: actions/checkout@v2
         with:
           ref: pages
+        run: |
+          git log  --pretty=oneline | tail -n 10
       - name: Publish doc
         run: |
           echo "=== Git branch ==="
