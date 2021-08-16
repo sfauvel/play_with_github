@@ -22,6 +22,8 @@ jobs:
           git branch --all
       - name: Rebase from master
         run: |
+          git config --global user.name 'Your Name'
+          git config --global user.email 'your-username@users.noreply.github.com'
           git merge origin/master --allow-unrelated-histories -m "Merge from master"
 
       - name: Copy docs
