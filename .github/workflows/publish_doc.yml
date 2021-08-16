@@ -1,0 +1,35 @@
+
+name: Publish doc pages
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          ref: pages
+      - name: Publish doc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== Git branch ==="
+          git branch
+          echo "=== Git all branches ==="
+          git branch --all
+      - name: Rebase from master
+          git rebase origin/master
+
+      - name: Copy docs
+          rm -Rf docs
+          cp -R builded_docs docs
+
+      - name: Commit docs
+          git add docs
+          git commit -m "New doc"
+          git push
