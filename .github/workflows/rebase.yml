@@ -28,3 +28,10 @@ jobs:
 
         git rebase origin/master
 
+        rm -R docs
+        cp -R builded_docs docs
+        git add docs
+
+        git commit -m "New doc"
+        git push
+
