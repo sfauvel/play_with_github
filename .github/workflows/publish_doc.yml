@@ -12,17 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 100
-      - name: Log master
-        run: |
-          git log  --pretty=oneline | tail -n 10
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
-          ref: pages
-      - name: Log pages
-        run: |
-          git log  --pretty=oneline | tail -n 10
+          fetch-depth: 0
+#      - uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 100
+#      - name: Log master
+#        run: |
+#          git log  --pretty=oneline | tail -n 10
+#      - uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 100
+#          ref: pages
+#      - name: Log pages
+#        run: |
+#          git log  --pretty=oneline | tail -n 10
       - name: Publish doc
         run: |
           echo "=== Git branch ==="
