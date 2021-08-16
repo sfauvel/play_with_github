@@ -22,14 +22,20 @@ jobs:
           git log --format=%B -n 1
           echo "=============== checkout ==============="
 
-          git checkout --progress --force -B doc refs/remotes/origin/doc
+      - name: Create report
+        run: |
+          echo $(git log --format=%B -n 1) >> release_note.adoc
+      - name: Commit report
+        run: |
+            git config --global user.name 'Your Name'
+          git config --global user.email 'your-username@users.noreply.github.com'
 
-          echo "=============== modify file ==============="
-          doc.adoc >> "New commit"
           echo "=============== add file ==============="
-          git add doc.adoc
+          git add  release_note.adoc
+
           echo "=============== commit ==============="
-          git commit -m "New commit"
+          git commit -am "Update release note"
           echo "=============== push ==============="
           git push
+
           echo "=============== done ==============="
