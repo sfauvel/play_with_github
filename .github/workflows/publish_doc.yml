@@ -11,10 +11,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        fetch-depth: 100
       - name: Log master
         run: |
           git log  --pretty=oneline | tail -n 10
       - uses: actions/checkout@v2
+        fetch-depth: 100
         with:
           ref: pages
       - name: Log pages
