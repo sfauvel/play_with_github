@@ -21,7 +21,19 @@ jobs:
           ref: pages
 
       - name: Show history
-        run: git log --oneline --graph origin/master pages
+        run: |
+          echo "master and pages tree"
+          git log --oneline --graph origin/master pages
+
+      - name: Pages history
+        run: |
+          echo "pages history"
+          git log --pretty=oneline pages | tail -n 15
+
+      - name: Origin Pages history
+        run: |
+          echo "origin/pages history"
+          git log --pretty=oneline origin/pages | tail -n 15
 
       - name: Configure Git user
         run: |
