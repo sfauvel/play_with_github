@@ -52,6 +52,9 @@ jobs:
       - name: Retrieve diff
         id: git_diff
         run: |
+          echo "===== git diff ===="
+          git diff
+          echo "================="
           echo "::set-output name=DOC_DIFF::$(git diff)"
           echo "Diff: ${{ steps.git_diff.outputs.DOC_DIFF }}"
 
