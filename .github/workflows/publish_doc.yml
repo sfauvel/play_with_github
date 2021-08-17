@@ -53,6 +53,7 @@ jobs:
         id: git_diff
         run: |
           echo "::set-output name=DOC_DIFF::$(git diff)"
+          echo "Diff: ${{ steps.git_diff.outputs.DOC_DIFF }}"
 
       - name: Check diff
         if: ${{ steps.git_diff.outputs.DOC_DIFF }} == ''
