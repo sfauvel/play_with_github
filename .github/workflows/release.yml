@@ -13,3 +13,10 @@ jobs:
 
     - name: Make a release
       run: echo "Make a release"
+
+    - name: Push a release
+      run: |
+        echo "New release" >> release.adoc
+        git add release.adoc
+        git commit -m "New release"
+        git push -f
