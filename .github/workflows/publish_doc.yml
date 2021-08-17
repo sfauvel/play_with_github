@@ -60,7 +60,7 @@ jobs:
           echo "==== NO DIFF ===="
           echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
 
-- name: Check not diff
+      - name: Check not diff
         if: ${{ steps.git_diff.outputs.DOC_DIFF }} != ''
         run: |
           echo "==== DIFF ===="
