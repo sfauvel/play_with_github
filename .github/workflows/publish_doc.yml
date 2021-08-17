@@ -58,6 +58,7 @@ jobs:
         run: |
           echo "==== GIT DIFF ===="
           echo "${{ steps.git_diff.outputs.DOC_DIFF }}"
+          echo "=================="
 
           git add docs
           git commit -m "New doc"
