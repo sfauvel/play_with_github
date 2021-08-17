@@ -21,7 +21,7 @@ jobs:
           ref: pages
 
       - name: Show history
-        run: git log --oneline --graph master pages
+        run: git log --oneline --graph origin/master pages
 
       - name: Configure Git user
         run: |
