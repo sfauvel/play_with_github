@@ -4,6 +4,7 @@ name: Publish doc pages
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
 #  merge_develop_to_publish:
@@ -48,8 +49,33 @@ jobs:
           rm -Rf docs
           cp -R builded_docs docs
 
+      - name: Retrieve diff
+        id: git_diff
+        run: |
+          echo "===== git diff ===="
+          git diff
+          echo "================="
+          echo "::set-output name=DOC_DIFF::$(git diff)"
+          echo "Diff: ${{ steps.git_diff.outputs.DOC_DIFF }}"
+
+      - name: Check diff
+        if: ${{ steps.git_diff.outputs.DOC_DIFF }} == ''
+        run: |
+          echo "==== NO DIFF ===="
+          echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
+
+      - name: Check not diff
+        if: ${{ steps.git_diff.outputs.DOC_DIFF }} != ''
+        run: |
+          echo "==== DIFF ===="
+          echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
+
       - name: Commit docs
         run: |
+          echo "==== GIT DIFF ===="
+          echo "${{ steps.git_diff.outputs.DOC_DIFF }}"
+          echo "=================="
+
           git add docs
           git commit -m "New doc"
           git push -f
