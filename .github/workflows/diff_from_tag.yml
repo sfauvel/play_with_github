@@ -18,6 +18,9 @@ jobs:
         fetch-depth: 0
 
 
+    - name: show log
+      run: git log
+
     - name: tag list
       run: git tag
 
