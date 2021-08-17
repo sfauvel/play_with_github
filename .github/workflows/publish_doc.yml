@@ -20,6 +20,9 @@ jobs:
           fetch-depth: 0
           ref: pages
 
+      -name: Show history
+        run: git log --oneline --graph master pages
+
       - name: Configure Git user
         run: |
           git config user.email "actions@noreply.github.com"
