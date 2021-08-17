@@ -78,6 +78,7 @@ jobs:
           echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
 
       - name: Commit docs
+        if: steps.git_diff.outputs.DOC_DIFF > 0
         run: |
           echo "==== GIT DIFF ===="
           echo "${{ steps.git_diff.outputs.DOC_DIFF }}"
