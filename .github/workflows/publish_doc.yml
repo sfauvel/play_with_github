@@ -66,13 +66,13 @@ jobs:
           echo "TEST_VAR => ${{ steps.git_diff.outputs.TEST_VAR }}"
 
       - name: Check diff
-        if: ${{ steps.git_diff.outputs.DOC_DIFF }} == ''
+        if: "${{ steps.git_diff.outputs.DOC_DIFF }}" == ""
         run: |
           echo "==== NO DIFF ===="
           echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
 
       - name: Check not diff
-        if: ${{ steps.git_diff.outputs.DOC_DIFF }} != ''
+        if: "${{ steps.git_diff.outputs.DOC_DIFF }}" != ""
         run: |
           echo "==== DIFF ===="
           echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
