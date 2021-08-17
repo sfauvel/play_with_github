@@ -51,31 +51,7 @@ jobs:
 
       - name: Retrieve diff
         id: git_diff
-        run: |
-          echo "===== git diff ===="
-          git diff
-          echo "================="
-          echo "::set-output name=DOC_DIFF::$(git diff | wc -l)"
-          echo "::set-output name=TEST_VAR::toto"
-          echo "Diff: ${{ steps.git_diff.outputs.DOC_DIFF }}"
-
-      - name: Display vars
-        run: |
-          echo "==== Vars ===="
-          echo "DOC_DIFF => ${{ steps.git_diff.outputs.DOC_DIFF }}"
-          echo "TEST_VAR => ${{ steps.git_diff.outputs.TEST_VAR }}"
-
-      - name: Check diff
-        if: steps.git_diff.outputs.DOC_DIFF > 0
-        run: |
-          echo "==== DIFF ===="
-          echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
-
-      - name: Check not diff
-        if: steps.git_diff.outputs.DOC_DIFF == 0
-        run: |
-          echo "==== NO DIFF ===="
-          echo "=> ${{ steps.git_diff.outputs.DOC_DIFF }}"
+        run: echo "::set-output name=DOC_DIFF::$(git diff | wc -l)"
 
       - name: Commit docs
         if: steps.git_diff.outputs.DOC_DIFF > 0
