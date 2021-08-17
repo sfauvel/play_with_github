@@ -18,10 +18,10 @@ jobs:
         fetch-depth: 0
 
     - name: fetch tags
-      run: git fetch -t
+      run: git fetch --tags
 
     - name: show log
-      run: git log
+      run: git log --oneline
 
     - name: tag list
       run: git tag
