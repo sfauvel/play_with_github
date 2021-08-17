@@ -6,6 +6,11 @@ on:
     branches: [ master ]
 
 jobs:
+#  merge_develop_to_publish:
+  # make_package: (test + doc)
+  # make_release: (or not)
+  # publish_doc: (if no src modify)
+
   build:
     runs-on: ubuntu-latest
 
@@ -14,30 +19,29 @@ jobs:
         with:
           fetch-depth: 0
           ref: pages
-#      - uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 100
-#      - name: Log master
-#        run: |
-#          git log  --pretty=oneline | tail -n 10
-#      - uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 100
-#          ref: pages
-#      - name: Log pages
-#        run: |
-#          git log  --pretty=oneline | tail -n 10
-#      - name: Publish doc
-#        run: |
-#          echo "=== Git branch ==="
-#          git branch
-#          echo "=== Git all branches ==="
-#          git branch --all
-      - name: Merge from master
+
+      - name: Show history
         run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-username@users.noreply.github.com'
-          git merge origin/master --allow-unrelated-histories -m "Merge from master"
+          echo "master and pages tree"
+          git log --oneline --graph origin/master pages
+
+      - name: Pages history
+        run: |
+          echo "pages history"
+          git log --pretty=oneline pages | tail -n 15
+
+      - name: Origin Pages history
+        run: |
+          echo "origin/pages history"
+          git log --pretty=oneline origin/pages | tail -n 15
+
+      - name: Configure Git user
+        run: |
+          git config user.email "actions@noreply.github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Merge from master
+        run: git merge origin/master --allow-unrelated-histories -m "Merge from master"
 
       - name: Copy docs
         run: |
@@ -45,11 +49,7 @@ jobs:
           cp -R builded_docs docs
 
       - name: Commit docs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-username@users.noreply.github.com'
           git add docs
           git commit -m "New doc"
           git push -f
