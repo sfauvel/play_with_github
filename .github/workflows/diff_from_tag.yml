@@ -21,4 +21,8 @@ jobs:
       run: git tag
 
     - name: find last release tag
-      run: git describe --abbrev=0 --tags --match "release-*"
+      id: last_release
+      run: echo "::set-output name=LAST_RELEASE::$(git describe --abbrev=0 --tags --match "release-*")"
+
+    - name: log from last release
+      run: git log --oneline ${{ steps.last_release.outputs.LAST_RELEASE }}..HEAD
