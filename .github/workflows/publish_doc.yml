@@ -63,3 +63,5 @@ jobs:
           git add docs
           git commit -m "New doc"
           git push -f
+
+#          find last release tag: git describe --abbrev=0 --tags --match "documentationtesting-*"
