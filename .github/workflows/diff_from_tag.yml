@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: tag list
+      run: git tag
+
     - name: find last release tag
       run: git describe --abbrev=0 --tags --match "release-*"
