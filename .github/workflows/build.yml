@@ -22,6 +22,10 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package
+
+    - name: Test docker
+      run: |
+        docker run haskell_dev; echo result: $?
 #    - name: Publish to GitHub Packages Apache Maven
 #      run: mvn --batch-mode deploy --file documentationtesting/pom.xml
 #      env:
