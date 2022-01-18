@@ -1,0 +1,14 @@
+= Graph
+
+Samle with an graphviz graph.
+
+
+[graphviz]
+----
+digraph g {
+    A -> B
+    A -> C
+    C -> E
+    C -> F
+}
+----

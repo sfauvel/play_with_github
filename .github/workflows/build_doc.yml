@@ -4,10 +4,8 @@
 name: Build project
 
 on:
-#  push:
-#    branches: [ master ]
-#  pull_request:
-#    branches: [ master ]
+  push:
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -25,8 +23,4 @@ jobs:
 
     - name: Test docker
       run: |
-        docker_image=$(docker images -q haskell_dev)
-#    - name: Publish to GitHub Packages Apache Maven
-#      run: mvn --batch-mode deploy --file documentationtesting/pom.xml
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ls tmp
