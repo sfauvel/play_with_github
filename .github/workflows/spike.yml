@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: check branch
         run: |
-          NB=`1`
+          NB=`echo 1`
           echo "NB: $NB"
 
     outputs:
