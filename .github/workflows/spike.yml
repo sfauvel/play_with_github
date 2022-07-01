@@ -16,7 +16,6 @@ jobs:
 
     steps:
       - id: step1
-      - name: check branch
         run: |
           NB=`echo 1`
           echo "NB: $NB"
