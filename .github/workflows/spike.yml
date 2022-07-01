@@ -15,19 +15,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - id: step1
       - name: check branch
         run: |
           NB=`echo 1`
           echo "NB: $NB"
-          echo "::set-output name=NB::$NB"
+          echo "::set-output name=nb_local::$NB"
 
     outputs:
-      NB: ${{steps.check_prerequisites.outputs.NB}}
+      NB: ${{steps.step1.outputs.nb_local}}
 
   first_job:
     name: First job
     needs: check_prerequisites
-    if: needs.check_prerequisites.outputs.NB == 1
+    if: needs.check_prerequisites.outputs.NB == 'ok'
 
     runs-on: ubuntu-latest
     steps:
