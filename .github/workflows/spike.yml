@@ -22,7 +22,7 @@ jobs:
 
       - name: check branch
         run: |
-          BRANCHES=`git branch -r | grep "^\s*origin/${{env.spike}}" | wc -l`
+          BRANCHES=`git branch -r | grep "^\s*origin/${{env.root_branch}}" | wc -l`
           echo "BRANCHES: $BRANCHES"
 
     outputs:
