@@ -24,23 +24,23 @@ jobs:
       NB: ${{steps.check_prerequisites.outputs.NB}}
 
   first_job:
-    name: Spike on branch
+    name: First job
     needs: check_prerequisites
-    if: needs.check_prerequisites.outputs.NB == 1
+    if: needs.check_prerequisites.outputs.NB == "1"
 
     runs-on: ubuntu-latest
     steps:
-      - name: Test docker
+      - name: Init env
         run: |
-          echo "Build"
+          echo "Create branch"
 
   second_job:
-    name: Spike on branch
+    name: Second job
     needs: first_job
     if: always()
 
     runs-on: ubuntu-latest
     steps:
-      - name: Test docker
+      - name: Run job
         run: |
           echo "Build"
