@@ -21,7 +21,7 @@ jobs:
           echo "NB: $NB"
 
     outputs:
-      IS_BRANCH_EXIST: ${{steps.check_prerequisites.outputs.NB}}
+      NB: ${{steps.check_prerequisites.outputs.NB}}
 
   first_job:
     name: Spike on branch
