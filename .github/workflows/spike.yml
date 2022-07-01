@@ -16,9 +16,9 @@ jobs:
 
     steps:
       - name: check branch
-          run: |
-            export BRANCHES=git branch -r | grep "^\s*origin/build_doc" | wc -l
-            echo "BRANCHES: $BRANCHES"
+        run: |
+          export BRANCHES=git branch -r | grep "^\s*origin/build_doc" | wc -l
+          echo "BRANCHES: $BRANCHES"
 
     outputs:
       IS_BRANCH_EXIST: ${{steps.check_prerequisites.outputs.BRANCHES}}
