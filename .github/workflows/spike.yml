@@ -17,7 +17,7 @@ jobs:
     steps:
       - id: step1
         run: |
-          NB=`echo 1`
+          NB=`echo 0`
           echo "NB: $NB"
           echo "::set-output name=nb_local::$NB"
 
