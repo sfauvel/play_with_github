@@ -33,3 +33,14 @@ jobs:
       - name: Test docker
         run: |
           echo "Build"
+
+  second_job:
+    name: Spike on branch
+    needs: first_job
+    if: always()
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test docker
+        run: |
+          echo "Build"
