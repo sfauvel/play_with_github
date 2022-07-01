@@ -1,0 +1,34 @@
+
+name: Hello world
+
+on:
+  push:
+    branches:
+      - spike
+
+env:
+  root_branch: 'spike'
+
+jobs:
+  check_prerequisites:
+    name: Check the prerequisites
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check branch
+          run: |
+            export BRANCHES=git branch -r | grep "^\s*origin/build_doc" | wc -l
+            echo "BRANCHES: $BRANCHES"
+
+    outputs:
+      IS_BRANCH_EXIST: ${{steps.check_prerequisites.outputs.BRANCHES}}
+
+  first_job:
+    needs: check_prerequisites
+    if: needs.check_prerequisites.outputs.IS_BRANCH_EXIST = 1
+    name: Spike on branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test docker
+        run: |
+          echo "Build"
