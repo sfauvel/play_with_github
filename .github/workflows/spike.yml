@@ -28,7 +28,7 @@ jobs:
   first_job:
     name: First job
     needs: check_prerequisites
-    if: needs.check_prerequisites.outputs.NB == 'ok'
+    if: needs.check_prerequisites.outputs.NB == 1
 
     runs-on: ubuntu-latest
     steps:
