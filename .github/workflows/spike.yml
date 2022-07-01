@@ -25,7 +25,7 @@ jobs:
 
   first_job:
     needs: check_prerequisites
-    if: needs.check_prerequisites.outputs.IS_BRANCH_EXIST = 1
+    if: needs.check_prerequisites.outputs.IS_BRANCH_EXIST == 1
     name: Spike on branch
     runs-on: ubuntu-latest
     steps:
