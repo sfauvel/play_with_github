@@ -15,11 +15,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: ${{env.root_branch}}
-
       - name: check branch
         run: |
           BRANCHES=`git branch -r | grep "^\s*origin/build_doc" | wc -l`
@@ -29,9 +24,10 @@ jobs:
       IS_BRANCH_EXIST: ${{steps.check_prerequisites.outputs.BRANCHES}}
 
   first_job:
+    name: Spike on branch
     needs: check_prerequisites
     if: needs.check_prerequisites.outputs.IS_BRANCH_EXIST == 1
-    name: Spike on branch
+
     runs-on: ubuntu-latest
     steps:
       - name: Test docker
