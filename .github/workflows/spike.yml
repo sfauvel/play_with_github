@@ -15,23 +15,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: ${{env.root_branch}}
-
       - name: check branch
         run: |
-          BRANCHES=`git branch -r | grep "^\s*origin/${{env.root_branch}}" | wc -l`
-          echo "BRANCHES: $BRANCHES"
+          NB=`1`
+          echo "NB: $NB"
 
     outputs:
-      IS_BRANCH_EXIST: ${{steps.check_prerequisites.outputs.BRANCHES}}
+      IS_BRANCH_EXIST: ${{steps.check_prerequisites.outputs.NB}}
 
   first_job:
     name: Spike on branch
     needs: check_prerequisites
-    if: needs.check_prerequisites.outputs.IS_BRANCH_EXIST == 1
+    if: needs.check_prerequisites.outputs.NB == 1
 
     runs-on: ubuntu-latest
     steps:
