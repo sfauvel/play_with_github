@@ -13,4 +13,4 @@ jobs:
     steps:
       - name: Test docker
         run: |
-          echo "Hello someone!"
+          echo "Hello Bob!"
