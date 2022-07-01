@@ -15,6 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{env.root_branch}}
+
       - name: check branch
         run: |
           export BRANCHES=git branch -r | grep "^\s*origin/build_doc" | wc -l
