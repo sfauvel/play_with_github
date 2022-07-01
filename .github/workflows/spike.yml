@@ -44,3 +44,4 @@ jobs:
       - name: Run job
         run: |
           echo "Build"
+          echo "NB: ${{needs.check_prerequisites.outputs.NB}}"
