@@ -19,6 +19,7 @@ jobs:
         run: |
           NB=`echo 1`
           echo "NB: $NB"
+          echo "::set-output name=NB::$NB"
 
     outputs:
       NB: ${{steps.check_prerequisites.outputs.NB}}
