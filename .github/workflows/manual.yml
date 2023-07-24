@@ -31,4 +31,4 @@ jobs:
     - name: Send greeting
       run: |
         echo "Hello ${{ inputs.name }}"
-        gh release create ${{ inputs.name }}" ./builded_docs/*
+        gh release create ${{ inputs.name }} ./builded_docs/*
