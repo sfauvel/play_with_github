@@ -29,6 +29,8 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
       run: |
         echo "Hello ${{ inputs.name }}"
         gh release create ${{ inputs.name }} ./builded_docs/*
