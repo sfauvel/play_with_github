@@ -34,4 +34,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.github_token }}
       run: |
         echo "Hello ${{ inputs.name }}"
-        gh release create ${{ inputs.name }} -n "My release note" ./builded_docs/index.html
+        release_note=`cat release.adoc`
+        gh release create ${{ inputs.name }} -n "$release_note" ./builded_docs/index.html
