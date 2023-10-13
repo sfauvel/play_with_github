@@ -7,6 +7,17 @@ Pour faire un lien vers une autre page du repo github
 Lien vers la page release.adoc:
 link:release.adoc[]
 
-Les includes ne fonctionne pas(ici on inclus release.adoc):
+Les includes ne fonctionne pas lors de l'affiche sur github(ici on inclus release.adoc).
+L'inclusion est remplacé par le lien.
 
 include::release.adoc[]
+
+
+La variable `env-github` est défini sur les page affichées sous github.
+
+ifndef::env-github[]
+Zone affichée *hors* github
+endif::[]
+ifdef::env-github[]
+Zone affichée *sous* github
+endif::[]
