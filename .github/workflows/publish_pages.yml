@@ -2,9 +2,8 @@ name: GitHub Pages Publish
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [ spike_doc ]
+
 
 jobs:
   build:
@@ -23,5 +22,5 @@ jobs:
         # adoc_file_ext: .ascii # default is .adoc
         source_dir: docs/ # default is .
         # slides_build: true
-        pre_build: python pre_build.py
+        #pre_build: python pre_build.py
         # post_build:
