@@ -1,0 +1,12 @@
+= Experimentation sur le fonctionnement de github
+
+Affichage de page `adoc` directement depuis l'interface.
+
+Pour faire un lien vers une autre page du repo github
+
+Lien vers la page release.adoc:
+release.adoc[]
+
+Les includes ne fonctionne pas(ici on inclus release.adoc):
+
+include::release.adoc[]
