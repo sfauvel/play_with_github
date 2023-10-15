@@ -59,8 +59,8 @@ jobs:
       with:
         pdf_build: true
         asciidoctor_params: --attribute=nofooter
-        adoc_file_ext: .adoc # default is .adoc
+        adoc_file_ext: [^_]*.adoc # default is .adoc
         source_dir: asciidocs/ # default is .
         # slides_build: true
-        #pre_build: python pre_build.py
+        # pre_build: python pre_build.py
         # post_build:
