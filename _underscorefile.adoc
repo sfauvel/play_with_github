@@ -1,0 +1,6 @@
+= Underscore file
+
+This file start with `_`.
+It's not converted in a HTML file using the asciidoctor docker.
+
+Is it with the github action ?
