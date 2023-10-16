@@ -85,17 +85,20 @@ jobs:
 
       - name: Adding output files to gh-pages branch.
         run: |
-          ls -al
-          pwd
+          git add docs
+          git stash save -m "Update documentation"
+
+      - name: Adding output files to gh-pages branch.
+        uses: actions/checkout@v3
+        with: 
+          ref: spike_pages
+        run: |
           git config user.email "actions@noreply.github.com"
           git config user.name "GitHub Actions"
-          git add docs
-          git stash
-          git checkout gh_pages
           git stash pop
           git commit -m "Update documentation" 1>/dev/null
-          git push -f --set-upstream origin gh-pages
-
+          git push -f
+          #git push -f --set-upstream origin gh-pages
 
 #          find . -name "*.html" -exec git add -f {} \;
 #          MSG="Build $INPUT_ADOC_FILE_EXT Files for GitHub Pages from $GITHUB_SHA"
