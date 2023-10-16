@@ -110,5 +110,9 @@ jobs:
           #git stash pop
           #git commit -m "Update documentation" 1>/dev/null
           rm -rf docs
-          git checkout -- docs
+          git checkout working_doc -- docs
           git push -f
+
+# No need to remove because only on the temporary machin
+ #     - name: Remove working branch
+ 
