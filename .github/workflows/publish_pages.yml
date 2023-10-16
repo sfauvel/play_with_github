@@ -109,7 +109,7 @@ jobs:
         run: |
           #git stash pop
           #git commit -m "Update documentation" 1>/dev/null
-          rm -rf docs
+          git rm -rf docs
           git checkout working_doc -- docs
           git push -f
 
