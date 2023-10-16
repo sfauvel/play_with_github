@@ -2,7 +2,7 @@ name: GitHub Pages Publish
 
 on:
   push:
-    branches: [ spike_pages ]
+    branches: [ spike_doc ]
 
 
 jobs:
@@ -125,4 +125,4 @@ jobs:
 
 # No need to remove because only on the temporary machin
  #     - name: Remove working branch
- 
+
