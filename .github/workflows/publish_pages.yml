@@ -8,7 +8,7 @@ env:
   #root_branch: 'develop'
   doc_branch: 'spike_pages'
   working_branch: 'tmp_branch_for_doc'
-  published_folder: 'docs'
+  published_folder: 'generated_docs'
   adoc_folder: 'asciidocs'
 
 
@@ -93,6 +93,7 @@ jobs:
       - name: Generate HTML
         run: |
           asciidoctor -r asciidoctor-diagram -D ${{env.published_folder}} -R ${{env.adoc_folder}} $(find ${{env.adoc_folder}} -type f -name "[^_]*.adoc")
+          rm -rf ${{env.published_folder}}/.asciidoctor
 
       - name: Adding docs files to working branch
         run: |
@@ -105,8 +106,6 @@ jobs:
           git checkout ${{env.doc_branch}}
 
           echo "Replace docs by the new one"
-          #git rm -rf ${{env.published_folder}}
-          #git checkout ${{env.working_branch}}  -- ${{env.published_folder}}
           git rm -rf .
           git checkout ${{env.working_branch}}  -- ${{env.published_folder}}
           git mv docs/* .
