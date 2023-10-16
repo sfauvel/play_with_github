@@ -74,6 +74,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          git config --global --add safe.directory $(realpath .)
           git config user.email github-action@github.com
           git config user.name github-action
 
