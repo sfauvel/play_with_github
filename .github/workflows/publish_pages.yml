@@ -114,7 +114,9 @@ jobs:
           echo "Commit and push modification "
           # The message will be always the same. How to have more information on the commit ?
           # It could be here that we check if files have changed
-          if [[ "" == $(git diff --cached) ]]
+          modif=`git diff --cached`
+          echo "Modif: $modif"
+          if [ "" -eq `git diff --cached` ]
           then
             echo "Nothing change. No commit."
           else
@@ -122,7 +124,7 @@ jobs:
             git push -f
           fi
 
-# Need to set pages to publish in Githu settings
+# Need to set pages to publish in Github settings
 # Settings > Pages > GitHub Pages > Build and deployment 
 # Source: Deploy from a branch
 # Branch: Select the branch with doc 
