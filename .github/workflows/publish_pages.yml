@@ -92,7 +92,7 @@ jobs:
 
       - name: Generate HTML
         run: |
-          asciidoctor -r asciidoctor-diagram -D ${{env.published_folder}} -R ${{env.adoc_folder}} $(find ${{env.adoc_folder}} -type f -name "[^_]*.adoc")
+          asciidoctor -e -r asciidoctor-diagram -D ${{env.published_folder}} -R ${{env.adoc_folder}} $(find ${{env.adoc_folder}} -type f -name "[^_]*.adoc")
           rm -rf ${{env.published_folder}}/.asciidoctor
 
       - name: Adding docs files to working branch
@@ -113,7 +113,7 @@ jobs:
 
           echo "Commit and push modification "
           # The message will be always the same. How to have more information on the commit ?
-          # It could be here that we check if files have changed
+          # It could be here that we check if files have changed: There is date in generated files 
           modif=`git diff --cached`
           echo "Modif: $modif"
           if [ "" -eq `git diff --cached` ]
