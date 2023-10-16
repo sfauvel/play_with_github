@@ -99,6 +99,7 @@ jobs:
           git add docs
           #git stash save -m "Update documentation"
           git commit -m "Update documentation"
+          git branch
 
       - name: Checkout doc branch
         uses: actions/checkout@v4
@@ -107,6 +108,7 @@ jobs:
 
       - name: Adding output files to the doc branch.
         run: |
+          git branch
           #git stash pop
           #git commit -m "Update documentation" 1>/dev/null
           git rm -rf docs
