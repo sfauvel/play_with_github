@@ -88,10 +88,12 @@ jobs:
           git add docs
           git stash save -m "Update documentation"
 
-      - name: Adding output files to gh-pages branch.
+      - name: Checkout doc branch
         uses: actions/checkout@v3
         with: 
           ref: spike_pages
+          
+      - name: Adding output files to gh-pages branch.
         run: |
           git config user.email "actions@noreply.github.com"
           git config user.name "GitHub Actions"
