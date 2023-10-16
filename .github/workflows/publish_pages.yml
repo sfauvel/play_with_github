@@ -95,10 +95,9 @@ jobs:
           git stash save -m "Update documentation"
 
       - name: Checkout doc branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with: 
           ref: spike_pages
-          depth: 1
 
       - name: Adding output files to the doc branch.
         run: |
