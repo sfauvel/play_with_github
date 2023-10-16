@@ -85,6 +85,8 @@ jobs:
 
       - name: Adding output files to gh-pages branch.
         run: |
+          git config user.email "actions@noreply.github.com"
+          git config user.name "GitHub Actions"
           git add docs
           git stash save -m "Update documentation"
 
@@ -92,7 +94,7 @@ jobs:
         uses: actions/checkout@v3
         with: 
           ref: spike_pages
-          
+
       - name: Adding output files to gh-pages branch.
         run: |
           git config user.email "actions@noreply.github.com"
