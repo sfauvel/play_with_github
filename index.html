@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Check</title>
+<title>Untitled</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -435,16 +435,97 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Check</h1>
 </div>
 <div id="content">
 <div class="paragraph">
-<p>File in subfolder</p>
+<p># Documentation</p>
+</div>
+<div class="paragraph">
+<p>Il est nécessaire d&#8217;avoir un fichier <code>README.adoc</code> qui servira de index.html</p>
+</div>
+<div class="listingblock">
+<div class="title">Contenu du wokflow de publication</div>
+<div class="content">
+<pre>name: Publish doc pages
+
+on:
+#  push:
+#    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+#  merge_develop_to_publish:
+  # make_package: (test + doc)
+  # make_release: (or not)
+  # publish_doc: (if no src modify)
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: pages
+
+      - name: Show history
+        run: |
+          echo "master and pages tree"
+          git log --oneline --graph origin/master pages
+
+      - name: Pages history
+        run: |
+          echo "pages history"
+          git log --pretty=oneline pages | tail -n 15
+
+      - name: Origin Pages history
+        run: |
+          echo "origin/pages history"
+          git log --pretty=oneline origin/pages | tail -n 15
+
+      - name: Configure Git user
+        run: |
+          git config user.email "actions@noreply.github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Merge from master
+        run: git merge origin/master --allow-unrelated-histories -m "Merge from master"
+
+      - name: Copy docs
+        run: |
+          rm -Rf docs
+          cp -R builded_docs docs
+
+      - name: Retrieve diff
+        id: git_diff
+        run: echo "::set-output name=DOC_DIFF::$(git diff | wc -l)"
+
+      - name: Commit docs
+        if: steps.git_diff.outputs.DOC_DIFF &gt; 0
+        run: |
+          echo "==== GIT DIFF ===="
+          echo "${{ steps.git_diff.outputs.DOC_DIFF }}"
+          echo "=================="
+
+          git add docs
+          git commit -m "New doc"
+          git push -f
+
+#          find last release tag: git describe --abbrev=0 --tags --match "documentationtesting-*"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Est ce que les graphs sotn correctement convertis ?</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="diag-graphviz-md5-d7ae714661738f276eb7aaf08974e789.png" alt="Diagram" width="227" height="251">
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-16 11:25:20 UTC
+Last updated 2023-10-16 11:48:21 UTC
 </div>
 </div>
 </body>
