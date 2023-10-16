@@ -114,8 +114,13 @@ jobs:
           echo "Commit and push modification "
           # The message will be always the same. How to have more information on the commit ?
           # It could be here that we check if files have changed
-          git commit -m "Update documentation"
-          git push -f
+          if [[ "" == $(git diff --cached) ]]
+          then
+            echo "Nothing change. No commit."
+          else
+            git commit -m "Update documentation"
+            git push -f
+          fi
 
 # Need to set pages to publish in Githu settings
 # Settings > Pages > GitHub Pages > Build and deployment 
