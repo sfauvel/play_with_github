@@ -72,7 +72,10 @@ jobs:
     container:
       image: asciidoctor/docker-asciidoctor
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        run: |
+          git config user.email github-action@github.com
+          git config user.name github-action
 
       - name: Generate HTML
         run: |
