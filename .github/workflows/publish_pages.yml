@@ -4,6 +4,13 @@ on:
   push:
     branches: [ spike_doc ]
 
+env:
+  #root_branch: 'develop'
+  doc_branch: 'spike_pages'
+  working_branch: 'tmp_branch_for_doc'
+  published_folder: 'docs'
+  adoc_folder: 'asciidocs'
+
 
 jobs:
 #  build:
@@ -81,49 +88,29 @@ jobs:
 
       - name: Switch to working branch
         run: |
-          # TODO check that the branch not exist (normally not because it never pushed)
-          git checkout -b working_doc
+          git checkout -b ${{env.working_branch}}
 
       - name: Generate HTML
         run: |
-          INPUT_PATH=asciidocs
-          asciidoctor -r asciidoctor-diagram -D docs -R $INPUT_PATH $(find $INPUT_PATH -type f -name "[^_]*.adoc")
-
-          # Suppression des modification de l'index. Cela est il nécessaire ?
-          #find . -name "*$INPUT_ADOC_FILE_EXT" -exec git rm -f --cached {} \;
-          # find $INPUT_PATH -name "[^_]*.adoc" -exec asciidoctor -b html -R $INPUT_PATH -D docs {} \;
+          asciidoctor -r asciidoctor-diagram -D ${{env.published_folder}} -R ${{env.adoc_folder}} $(find ${{env.adoc_folder}} -type f -name "[^_]*.adoc")
 
       - name: Adding docs files to working branch
         run: |
           echo "Add docs folder"
-          git add docs
-          #git stash save -m "Update documentation"
-          echo "Commit changes"
+          git add ${{env.published_folder}}
           git commit -m "Update documentation"
-          echo "existing branches"
-          git branch
-          echo "Checkout spike_pages"
-          git fetch origin spike_pages
-          git checkout spike_pages
-          #      - name: Checkout doc branch
-          #        uses: actions/checkout@v4
-          #        with:
-          #          ref: spike_pages
-          #
-          #      - name: Adding output files to the doc branch.
-          #        run: |
-          echo "existing branches"
-          git branch
-          #git stash pop
-          #git commit -m "Update documentation" 1>/dev/null
-          echo "Remove docs folder"
-          git rm -rf docs
-          echo "Get new docs files"
-          git checkout working_doc -- docs          
+
+          echo "Checkout doc branch"
+          git fetch origin ${{env.doc_branch}}
+          git checkout ${{env.doc_branch}}
+
+          echo "Replace docs by the new one"
+          #git rm -rf ${{env.published_folder}}
+          #git checkout ${{env.working_branch}}  -- ${{env.published_folder}}
+          git rm -rf .
+          git checkout ${{env.working_branch}}  -- ${{env.published_folder}}
+          git mv docs .
+
           echo "Commit and push modification "
           git commit -m "Update documentation"
           git push -f
-
-# No need to remove because only on the temporary machin
- #     - name: Remove working branch
-
