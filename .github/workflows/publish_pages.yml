@@ -73,24 +73,24 @@ jobs:
       image: asciidoctor/docker-asciidoctor
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          git config --global --add safe.directory $(realpath .)
-          git config user.email github-action@github.com
-          git config user.name github-action
 
       - name: Generate HTML
         run: |
           INPUT_PATH=asciidocs
-          asciidoctor -D docs -R $INPUT_PATH $(find $INPUT_PATH -type f -name "[^_]*.adoc")
+          asciidoctor -r asciidoctor-diagram -D docs -R $INPUT_PATH $(find $INPUT_PATH -type f -name "[^_]*.adoc")
           
           # Suppression des modification de l'index. Cela est il nécessaire ?
           #find . -name "*$INPUT_ADOC_FILE_EXT" -exec git rm -f --cached {} \;
           # find $INPUT_PATH -name "[^_]*.adoc" -exec asciidoctor -b html -R $INPUT_PATH -D docs {} \;
 
-      - name: Adding output files to gh-pages branch.
+      - name: Configure Git
         run: |
-          git config user.email "actions@noreply.github.com"
-          git config user.name "GitHub Actions"
+          git config --global --add safe.directory $(realpath .)
+          git config user.email github-action@github.com
+          git config user.name github-action
+
+      - name: Adding docs files to stash
+        run: |
           git add docs
           git stash save -m "Update documentation"
 
@@ -98,20 +98,10 @@ jobs:
         uses: actions/checkout@v3
         with: 
           ref: spike_pages
+          depth: 1
 
-      - name: Adding output files to gh-pages branch.
+      - name: Adding output files to the doc branch.
         run: |
-          git config user.email "actions@noreply.github.com"
-          git config user.name "GitHub Actions"
           git stash pop
           git commit -m "Update documentation" 1>/dev/null
           git push -f
-          #git push -f --set-upstream origin gh-pages
-
-#          find . -name "*.html" -exec git add -f {} \;
-#          MSG="Build $INPUT_ADOC_FILE_EXT Files for GitHub Pages from $GITHUB_SHA"
-#          git rm -rf .github/ || true
-#          echo "Committing changes to gh-pages branch"
-#          git commit -m "$MSG" 1>/dev/null
-#          echo "Pushing changes back to the remote repository"
-#          git push -f --set-upstream origin gh-pages
