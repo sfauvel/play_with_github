@@ -85,6 +85,8 @@ jobs:
 
       - name: Adding output files to gh-pages branch.
         run: |
+          ls -al
+          pwd
           git config user.email "actions@noreply.github.com"
           git config user.name "GitHub Actions"
           git add docs
