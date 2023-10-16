@@ -119,8 +119,9 @@ jobs:
           echo "Remove docs folder"
           git rm -rf docs
           echo "Get new docs files"
-          git checkout working_doc -- docs
-          echo "Push modification "
+          git checkout working_doc -- docs          
+          echo "Commit and push modification "
+          git commit -m "Update documentation"
           git push -f
 
 # No need to remove because only on the temporary machin
