@@ -11,7 +11,7 @@ jobs:
 #
 #    steps:
 #    - uses: actions/checkout@v3
-#      
+#
 #    # Includes the AsciiDoctor GitHub Pages Action to convert adoc files to html and publish to gh-pages branch
 #    # from https://github.com/manoelcampos/asciidoctor-ghpages-action
 #    - name: asciidoctor-ghpages
@@ -39,7 +39,7 @@ jobs:
 #          find $INPUT_PATH -name "[^_]*.adoc" -exec asciidoctor -b html -R $INPUT_PATH -D docs {} \;
 #
 #      - name: publish jekyll site in gh pages
-      
+
 
 # Set -R to keep subfolder in output files.
 # It's possible to include files that are not in docs
@@ -52,7 +52,7 @@ jobs:
 #
 #    steps:
 #    - uses: actions/checkout@v3
-#      
+#
 #    # Includes the AsciiDoctor GitHub Pages Action to convert adoc files to html and publish to gh-pages branch
 #    # from https://github.com/manoelcampos/asciidoctor-ghpages-action
 #    - name: asciidoctor-ghpages
@@ -78,7 +78,7 @@ jobs:
           git config --global --add safe.directory $(realpath .)
           git config user.email github-action@github.com
           git config user.name github-action
-          
+
       - name: Switch to working branch
         run: |
           # TODO check that the branch not exist (normally not because it never pushed)
@@ -88,32 +88,39 @@ jobs:
         run: |
           INPUT_PATH=asciidocs
           asciidoctor -r asciidoctor-diagram -D docs -R $INPUT_PATH $(find $INPUT_PATH -type f -name "[^_]*.adoc")
-          
+
           # Suppression des modification de l'index. Cela est il nécessaire ?
           #find . -name "*$INPUT_ADOC_FILE_EXT" -exec git rm -f --cached {} \;
           # find $INPUT_PATH -name "[^_]*.adoc" -exec asciidoctor -b html -R $INPUT_PATH -D docs {} \;
 
       - name: Adding docs files to working branch
         run: |
+          echo "Add docs folder"
           git add docs
           #git stash save -m "Update documentation"
+          echo "Commit changes"
           git commit -m "Update documentation"
+          echo "existing branches"
           git branch
+          echo "Checkout spike_pages"
           git checkout spike_pages
           #      - name: Checkout doc branch
           #        uses: actions/checkout@v4
-          #        with: 
+          #        with:
           #          ref: spike_pages
           #
           #      - name: Adding output files to the doc branch.
           #        run: |
+          echo "existing branches"
           git branch
           #git stash pop
           #git commit -m "Update documentation" 1>/dev/null
+          echo "Remove docs folder"
           git rm -rf docs
+          echo "Get new docs files"
           git checkout working_doc -- docs
+          echo "Push modification "
           git push -f
 
 # No need to remove because only on the temporary machin
  #     - name: Remove working branch
- 
