@@ -109,7 +109,7 @@ jobs:
           #git checkout ${{env.working_branch}}  -- ${{env.published_folder}}
           git rm -rf .
           git checkout ${{env.working_branch}}  -- ${{env.published_folder}}
-          git mv docs .
+          git mv docs/* .
 
           echo "Commit and push modification "
           git commit -m "Update documentation"
