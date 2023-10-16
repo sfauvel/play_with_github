@@ -2,7 +2,7 @@ name: GitHub Pages Publish
 
 on:
   push:
-    branches: [ spike_doc ]
+    branches: [ spike_pages ]
 
 
 jobs:
@@ -102,12 +102,13 @@ jobs:
           git commit -m "Update documentation"
           echo "existing branches"
           git branch
-          echo "Checkout spike_doc"
-          git checkout spike_doc
+          echo "Checkout spike_pages"
+          git fetch origin spike_pages
+          git checkout spike_pages
           #      - name: Checkout doc branch
           #        uses: actions/checkout@v4
           #        with:
-          #          ref: spike_doc
+          #          ref: spike_pages
           #
           #      - name: Adding output files to the doc branch.
           #        run: |
