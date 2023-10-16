@@ -36,6 +36,7 @@ jobs:
 #        run: |
 #          INPUT_PATH=asciidocs
 #          asciidoctor -D docs -R $INPUT_PATH $(find $INPUT_PATH -type f -name "[^_]*.adoc")
+#          find $INPUT_PATH -name "[^_]*.adoc" -exec asciidoctor -b html -R $INPUT_PATH -D docs {} \;
 #
 #      - name: publish jekyll site in gh pages
       
@@ -45,22 +46,59 @@ jobs:
 # To find all files that not start by `_` find docs -name "[^_]*.adoc"
 # To list all files that not start by '_': $(find $INPUT_PATH -type f -name "[^_]*.adoc")
 
+#manoelcampos/asciidoctor-ghpages-action@v2
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - uses: actions/checkout@v3
+#      
+#    # Includes the AsciiDoctor GitHub Pages Action to convert adoc files to html and publish to gh-pages branch
+#    # from https://github.com/manoelcampos/asciidoctor-ghpages-action
+#    - name: asciidoctor-ghpages
+#      uses: manoelcampos/asciidoctor-ghpages-action@v2
+#      with:
+#        # pdf_build: true
+#        asciidoctor_params: --attribute=nofooter
+#        adoc_file_ext: "[^_]*.adoc" # default is .adoc
+#        source_dir: asciidocs/ # default is .
+#        # slides_build: true
+#        # pre_build: python pre_build.py
+#        # post_build:
 
-  build:
+
+  publish-asciidoc:
     runs-on: ubuntu-latest
-
+    container:
+      image: asciidoctor/docker-asciidoctor
     steps:
-    - uses: actions/checkout@v3
-      
-    # Includes the AsciiDoctor GitHub Pages Action to convert adoc files to html and publish to gh-pages branch
-    # from https://github.com/manoelcampos/asciidoctor-ghpages-action
-    - name: asciidoctor-ghpages
-      uses: manoelcampos/asciidoctor-ghpages-action@v2
-      with:
-        # pdf_build: true
-        asciidoctor_params: --attribute=nofooter
-        adoc_file_ext: "[^_]*.adoc" # default is .adoc
-        source_dir: asciidocs/ # default is .
-        # slides_build: true
-        # pre_build: python pre_build.py
-        # post_build:
+      - uses: actions/checkout@v3
+
+      - name: Generate HTML
+        run: |
+          INPUT_PATH=asciidocs
+          asciidoctor -D docs -R $INPUT_PATH $(find $INPUT_PATH -type f -name "[^_]*.adoc")
+          
+          # Suppression des modification de l'index. Cela est il nécessaire ?
+          #find . -name "*$INPUT_ADOC_FILE_EXT" -exec git rm -f --cached {} \;
+          # find $INPUT_PATH -name "[^_]*.adoc" -exec asciidoctor -b html -R $INPUT_PATH -D docs {} \;
+
+      - name: Adding output files to gh-pages branch.
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add docs
+          git stash
+          git checkout gh_pages
+          git stash pop
+          git commit -m "Update documentation" 1>/dev/null
+          git push -f --set-upstream origin gh-pages
+
+
+#          find . -name "*.html" -exec git add -f {} \;
+#          MSG="Build $INPUT_ADOC_FILE_EXT Files for GitHub Pages from $GITHUB_SHA"
+#          git rm -rf .github/ || true
+#          echo "Committing changes to gh-pages branch"
+#          git commit -m "$MSG" 1>/dev/null
+#          echo "Pushing changes back to the remote repository"
+#          git push -f --set-upstream origin gh-pages
