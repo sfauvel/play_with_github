@@ -102,12 +102,12 @@ jobs:
           git commit -m "Update documentation"
           echo "existing branches"
           git branch
-          echo "Checkout spike_docs"
-          git checkout spike_docs
+          echo "Checkout spike_doc"
+          git checkout spike_doc
           #      - name: Checkout doc branch
           #        uses: actions/checkout@v4
           #        with:
-          #          ref: spike_docs
+          #          ref: spike_doc
           #
           #      - name: Adding output files to the doc branch.
           #        run: |
