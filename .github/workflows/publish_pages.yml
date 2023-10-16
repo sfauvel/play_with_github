@@ -100,14 +100,14 @@ jobs:
           #git stash save -m "Update documentation"
           git commit -m "Update documentation"
           git branch
-
-      - name: Checkout doc branch
-        uses: actions/checkout@v4
-        with: 
-          ref: spike_pages
-
-      - name: Adding output files to the doc branch.
-        run: |
+          git checkout spike_pages
+#      - name: Checkout doc branch
+#        uses: actions/checkout@v4
+#        with: 
+#          ref: spike_pages
+#
+#      - name: Adding output files to the doc branch.
+#        run: |
           git branch
           #git stash pop
           #git commit -m "Update documentation" 1>/dev/null
