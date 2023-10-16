@@ -73,6 +73,16 @@ jobs:
       image: asciidoctor/docker-asciidoctor
     steps:
       - uses: actions/checkout@v4
+      - name: Configure Git
+        run: |
+          git config --global --add safe.directory $(realpath .)
+          git config user.email github-action@github.com
+          git config user.name github-action
+          
+      - name: Switch to working branch
+        run: |
+          # TODO check that the branch not exist (normally not because it never pushed)
+          git checkout -b working_doc
 
       - name: Generate HTML
         run: |
@@ -83,16 +93,12 @@ jobs:
           #find . -name "*$INPUT_ADOC_FILE_EXT" -exec git rm -f --cached {} \;
           # find $INPUT_PATH -name "[^_]*.adoc" -exec asciidoctor -b html -R $INPUT_PATH -D docs {} \;
 
-      - name: Configure Git
-        run: |
-          git config --global --add safe.directory $(realpath .)
-          git config user.email github-action@github.com
-          git config user.name github-action
 
-      - name: Adding docs files to stash
+      - name: Adding docs files to working branch
         run: |
           git add docs
-          git stash save -m "Update documentation"
+          #git stash save -m "Update documentation"
+          git commit -m "Update documentation"
 
       - name: Checkout doc branch
         uses: actions/checkout@v4
@@ -101,6 +107,8 @@ jobs:
 
       - name: Adding output files to the doc branch.
         run: |
-          git stash pop
-          git commit -m "Update documentation" 1>/dev/null
+          #git stash pop
+          #git commit -m "Update documentation" 1>/dev/null
+          rm -rf docs
+          git checkout -- docs
           git push -f
