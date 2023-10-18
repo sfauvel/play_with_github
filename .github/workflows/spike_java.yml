@@ -1,0 +1,53 @@
+name: Build java
+
+on:
+  push:
+    branches: [ java_encoding ]
+
+  compile_playwright:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.32.0-focal
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Build playwright
+      shell: bash
+      run: |
+        cd src
+        javac HelloWorld.java
+        java HelloWorld
+        echo "Hello 1"
+        cat hello.adoc
+        echo ""
+        echo "Hello 2"
+        cat hello2.adoc
+        echo ""
+
+  compile_ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Build java
+      shell: bash
+      run: |
+        cd src
+        javac HelloWorld.java
+        java HelloWorld
+        echo "Hello 1"
+        cat hello.adoc
+        echo ""
+        echo "Hello 2"
+        cat hello2.adoc
+        echo ""
