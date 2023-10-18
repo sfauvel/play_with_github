@@ -21,6 +21,7 @@ jobs:
       shell: bash
       run: |
         cd src
+        cat HelloWorld.java
         javac HelloWorld.java
         java HelloWorld
         echo "Hello 1"
@@ -44,6 +45,7 @@ jobs:
       shell: bash
       run: |
         cd src
+        cat HelloWorld.java
         javac HelloWorld.java
         java HelloWorld
         echo "Hello 1"
