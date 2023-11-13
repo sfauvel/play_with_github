@@ -24,8 +24,9 @@ jobs:
   reuse_artifact:
     name: Produce and upload artifact
     runs-on: ubuntu-latest
+    needs: produce_artifact
     steps:
-      - name: Récuparation de l'artifact
+      - name: Récupération de l'artifact
         uses: actions/download-artifact@v3
 
       - name: Affichage du contenu        
