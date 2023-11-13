@@ -1,0 +1,22 @@
+
+name: Download artifact
+
+on:
+  push:
+    branches:
+      - reuse_artifact
+
+jobs:
+  produce_artifact:
+    name: Produce and upload artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Creation du fichier
+        run: |
+          echo "Hello someone!" > hello.txt
+
+      - name: Mise en archive du fichier
+        uses: actions/upload-artifact@v3
+        with:
+          name: upload_file
+          path: hello.txt
