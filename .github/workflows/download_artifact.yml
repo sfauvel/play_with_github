@@ -18,7 +18,7 @@ jobs:
       - name: Mise en archive du fichier
         uses: actions/upload-artifact@v3
         with:
-          name: uploaded_file.txt
+          name: uploaded_file
           path: hello.txt
 
   reuse_artifact:
@@ -31,4 +31,9 @@ jobs:
 
       - name: Affichage du contenu        
         run: |
-          cat uploaded_file.txt
+          echo "Contenu de $(pwd)"
+          ls
+
+          echo "Contenu de uploaded_file"
+          ls uploaded_file
+          cat uploaded_file/hello.txt
