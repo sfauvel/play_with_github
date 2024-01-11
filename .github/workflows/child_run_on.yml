@@ -1,0 +1,17 @@
+
+name: ChildRunOn
+
+on:
+  workflow_run:
+    workflows: [MainRunOn]
+    types: [completed]
+    branches: [run_on]
+
+jobs:
+  say_hello:
+    name: HelloChild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test run
+        run: |
+          echo "Hello from child run on!"
