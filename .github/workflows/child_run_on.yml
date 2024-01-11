@@ -14,4 +14,4 @@ jobs:
     steps:
       - name: Test run
         run: |
-          echo "Hello from child run on!"
+          echo "Hello from child run on !"
