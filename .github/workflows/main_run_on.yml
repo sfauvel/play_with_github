@@ -1,0 +1,16 @@
+
+name: MainRunOn
+
+on:
+  push:
+    branches:
+      - run_on
+
+jobs:
+  say_hello:
+    name: HelloMain
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test run
+        run: |
+          echo "Hello from main run on!"
