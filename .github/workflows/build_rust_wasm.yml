@@ -24,4 +24,5 @@ jobs:
         shell: bash
         run: |
           cd src-wasm
+          cargo build
           wasm-pack build --target web
