@@ -23,4 +23,5 @@ jobs:
       - name: Build 'rust-wasm' library
         shell: bash
         run: |
-          wasm-pack build src-wasm --target web
+          cd src-wasm
+          wasm-pack build --target web
