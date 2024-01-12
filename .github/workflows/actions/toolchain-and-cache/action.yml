@@ -1,0 +1,38 @@
+name: toolchain-and-cache
+description: Install the stable cargo toolchain, the given cargo tools, and try to restore cache
+inputs:
+  cache-version:
+    description: Version of the current cache
+    required: false
+    default: ''
+  cargo-tools:
+    description: Space seperated list of cargo tools to install
+    required: false
+    default: ''
+runs:
+  using: "composite"
+  steps:
+    - name: Install stable toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+        components: clippy, rustfmt
+
+    - name: Rust Cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        key: ${{ runner.os }}-cache-v${{ inputs.cache-version }}
+    
+    - name: Install cargo tools installer
+      uses: taiki-e/install-action@v2
+      if: inputs.cargo-tools != ''
+      with:
+        tool: cargo-binstall
+    
+    - name: Install cargo tools
+      if: inputs.cargo-tools != ''
+      shell: bash
+      run: |
+        # Sometimes without the `--force` options the installed binaries are not found by cargo
+        # leading to error such as: `error: no such command: `my-tool``
+        cargo binstall --force --no-confirm ${{ inputs.cargo-tools }}
