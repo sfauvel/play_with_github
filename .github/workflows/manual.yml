@@ -40,5 +40,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.github_token }}
       run: |
         echo "Hello ${{ inputs.name }}"
+        echo "Boolean: ${{ inputs.param_bool }}"
         release_note=`cat release.adoc`
         gh release create ${{ inputs.name }} -n "$release_note" ./builded_docs/index.html
