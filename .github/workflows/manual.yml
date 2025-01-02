@@ -5,6 +5,19 @@ name: Manual workflow
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
+  workflow_call:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        type: string
+        default: 'John'
+      param_bool:
+        description: | 
+          Boolean
+        required: true
+        type: boolean
+        default: false
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
