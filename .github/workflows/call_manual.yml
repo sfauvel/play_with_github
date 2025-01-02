@@ -1,0 +1,11 @@
+name: Call Manual workflow
+# Call the manual workflow
+
+on:
+
+  workflow_dispatch:
+
+
+jobs:
+  call_greet:
+    uses: ./.github/workflows/manual.yml
