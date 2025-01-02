@@ -9,13 +9,13 @@ on:
     inputs:
       name:
         description: 'Person to greet'
-        required: true
+        required: false
         type: string
         default: 'John'
       param_bool:
         description: | 
           Boolean
-        required: true
+        required: false
         type: boolean
         default: false
   workflow_dispatch:
